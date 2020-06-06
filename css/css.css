@@ -65,8 +65,7 @@ header {
 }
 #menu .selected::before {
     content: '';
-    
-    width: .053333rem;
+    width: .133333rem;
     height: 100%;
     background-color: orange;
 }
