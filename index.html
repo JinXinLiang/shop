@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/nomalize.css">
+    <link rel="stylesheet" href="./css/css.css">
+    <script src="jquery/jquery-3.5.1.min.js"></script>
+    <script src="js/index.min.js"></script>
+</head>
+<body>
+    <!-- <header>医美面膜货价</header> -->
+    <div id="container">
+        <div id="menu">
+            <ul></ul>
+        </div>
+        <div id="content">
+            <ul>
+                <span></span>
+            </ul>
+        </div>
+    </div>
+    <script src="js/data.js"></script>
+    <script>
+        var menu = $('#menu>ul');
+
+        var content = $('#content');
+        
+        for (var i = 0; i < menuArr.length; i++) {
+            var menuTitle = menuArr[i]['menu'];
+            var li = $('<li><span>' + menuTitle + '</span</li>');
+            if (i === 0) {
+                li.addClass("selected");
+                let contentArr = menuArr[i]['content'];
+                refreshContent(contentArr)
+            }
+            console.dir(li.html);
+            menu.append(li);
+        }
+        $("#menu li").click(function () {
+            $(this).addClass("selected").siblings().removeClass("selected");
+            content.empty();
+            content.scrollTop();
+            let contentArr = menuArr[$(this).index()]['content'];
+            console.log($(this).index());
+            refreshContent(contentArr);
+            
+        })
+        function refreshContent(contentArr) {
+            for (let index = 0; index < contentArr.length; index++) {
+                    const item = contentArr[index];
+                    let li = $('<li></li>');
+                    let title = $('<div>' + item['title'] + '</div>');
+                    title.addClass("itemTitle");
+                    let realPrice = $('<div>' + '<span>进货价：</span>' + '<span class="price">' + '￥' + item['realPrice'] +'</span>' + '</div>');
+                    let salePrice = $('<div>' + '<span>市场价：</span>' + '<span class="price">' + '￥' + item['salePrice'] + '</div>');
+                    li.append(title);
+                    li.append(realPrice);
+                    li.append(salePrice);
+                    content.append(li);
+                }
+        }
+    </script>
+</body>
+</html>
